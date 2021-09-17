@@ -3,7 +3,7 @@ from pymysql import cursors
 def getSearchNumber(phone_number):
     list_number =[]
     sql = 'SELECT extension FROM users;'
-    connection = myconsql.getConnection()
+    connection = myConnect.getConnection()
     cursor = connection.cursor()
     cursor.execute(sql)
     for id in cursor:
