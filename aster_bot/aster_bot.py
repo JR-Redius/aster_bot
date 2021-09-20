@@ -7,13 +7,17 @@ bot = telebot.TeleBot(token)
 def get_text_message(message):
     if len(message.text) == 4 and message.text.isdigit():
         user_info = mySearchNumber.getSearchNumber(message.text)
-        bot.send_message(message.from_user.id, "Номер = "+str(user_info['name']))
-        bot.send_message(message.from_user.id, "ФИО = "+str(user_info['fullname']))
-        bot.send_message(message.from_user.id, "Пароль = "+str(user_info['secret']))
         markup=telebot.types.InlineKeyboardMarkup()
-        markup.add(telebot.types.InlineKeyboardButton(text='Изменить пароль', callback_data=3))
-        markup.add(telebot.types.InlineKeyboardButton(text='Изменить ФИО', callback_data=3))
-        bot.send_message(message.chat.id, text='Что сделать с данным номером?', reply_markup=markup)
+        if user_info != 'Номер не найден':
+            bot.send_message(message.from_user.id, "Номер = "+str(user_info['name']))
+            bot.send_message(message.from_user.id, "ФИО = "+str(user_info['fullname']))
+            bot.send_message(message.from_user.id, "Пароль = "+str(user_info['secret']))
+            markup.add(telebot.types.InlineKeyboardButton(text='Изменить пароль', callback_data=3))
+            markup.add(telebot.types.InlineKeyboardButton(text='Изменить ФИО', callback_data=3))
+            bot.send_message(message.chat.id, text='Что сделать с данным номером?', reply_markup=markup)
+        else:
+            markup.add(telebot.types.InlineKeyboardButton(text='Создать нового вользователя', callback_data=5))
+            bot.send_message(message.chat.id, text=str(user_info), reply_markup=markup)     
     else:
         bot.send_message(message.from_user.id, 'не подходит')
 @bot.callback_query_handler(func=lambda call: True)
