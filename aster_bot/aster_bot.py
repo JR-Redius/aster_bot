@@ -7,9 +7,9 @@ bot = telebot.TeleBot(token)
 def get_text_message(message):
     if len(message.text) == 4 and message.text.isdigit():
         user_info = mySearchNumber.getSearchNumber(message.text)
-        bot.send_message(message.from_user.id, "Номер = "+str(user_info['extension']))
-        bot.send_message(message.from_user.id, "ФИО = "+str(user_info['name']))
-        bot.send_message(message.from_user.id, "Пароль = "+str(user_info['password']))
+        bot.send_message(message.from_user.id, "Номер = "+str(user_info['name']))
+        bot.send_message(message.from_user.id, "ФИО = "+str(user_info['fullname']))
+        bot.send_message(message.from_user.id, "Пароль = "+str(user_info['secret']))
         markup=telebot.types.InlineKeyboardMarkup()
         markup.add(telebot.types.InlineKeyboardButton(text='Изменить пароль', callback_data=3))
         markup.add(telebot.types.InlineKeyboardButton(text='Изменить ФИО', callback_data=3))

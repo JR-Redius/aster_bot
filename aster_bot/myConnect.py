@@ -4,7 +4,7 @@ def getConnection():
     connection = pymysql.connect(
         host = '127.0.0.1',
         user = 'jred',
-        password = 'A912n157tno',
+        password = 'wudiw01e',
         db = 'asterisk',
         cursorclass = pymysql.cursors.DictCursor
     )
